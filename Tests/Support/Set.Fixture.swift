@@ -13,7 +13,7 @@ public import Set_Algebra_Primitives
 public import Iterator_Chunk_Primitives
 
 extension Set where Element: Hash.`Protocol` & Copyable {
-    /// A minimal `Set.Protocol` + `Iterable` conformer for exercising the
+    /// A minimal `Membership` + `Iterable` conformer for exercising the
     /// membership core's `isEmpty` derivation and the orthogonal relational
     /// predicate algebra (`isDisjoint`, `isSubset`, `isSuperset`,
     /// `isStrictSubset`, `isStrictSuperset`, `isEqual`) — which now compose
@@ -43,7 +43,7 @@ extension Set where Element: Hash.`Protocol` & Copyable {
 
 // MARK: - Membership core ({contains, count})
 
-extension Set.Fixture: Set.`Protocol` where Element: Hash.`Protocol` & Copyable {
+extension Set.Fixture: Membership where Element: Hash.`Protocol` & Copyable {
     @inlinable
     public func contains(_ element: borrowing Element) -> Bool {
         let needle = copy element
@@ -80,7 +80,7 @@ extension Set.Fixture: Iterable where Element: Hash.`Protocol` & Copyable {
 // Makes `Set.Fixture` a `Buildable` conformer (builder-primitives' generic build
 // capability — `Initiable`'s `init()` + the neutral `add`) so the constructive
 // algebra (`union` / `intersection` / `subtracting` / `symmetricDifference`) and
-// the `powerset()` lattice — all composed `where Self: Set.Protocol & Buildable &
+// the `powerset()` lattice — all composed `where Self: Membership & Buildable &
 // Iterable` in `Set Algebra Primitives` — have a concrete buildable conformer to
 // test against, independent of the storage disciplines that live in sibling
 // packages (set-ordered etc.). There is no bundled `Set.Buildable.Protocol`; the

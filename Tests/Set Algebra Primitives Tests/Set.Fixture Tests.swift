@@ -12,9 +12,9 @@
 import Set_Algebra_Primitives_Test_Support
 import Testing
 
-// The relational defaults declared on `Set.Protocol` in
+// The relational defaults declared on `Membership` in
 // `Set_Protocol_Primitives` are exercised here against `Set.Fixture`, the
-// minimal `Set.Protocol` conformer that lives in the Test Support module.
+// minimal `Membership` conformer that lives in the Test Support module.
 // `Set.Fixture` carries no storage discipline — it is the protocol-level
 // behavioural vehicle, deliberately distinct from the storage variants in
 // sibling packages.
@@ -24,7 +24,7 @@ import Testing
 // `@Suite` / `@Test` macros reject declarations in a generic context. Every
 // test references the source-domain type `Set<Int>.Fixture` directly.
 
-@Suite("Set.Protocol Relational Defaults")
+@Suite("Membership Relational Defaults")
 struct Test {
     @Suite struct Unit {}
     @Suite struct `Edge Case` {}

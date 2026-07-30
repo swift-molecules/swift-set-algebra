@@ -28,12 +28,12 @@ public import Set_Protocol_Primitives
 // relative complement is the package's own native operation —
 // `universe.subtracting(A)` (∁A = U ∖ A).
 //
-// Defined as an extension ON `Set.Protocol` composed with builder's `Buildable`
+// Defined as an extension ON `Membership` composed with builder's `Buildable`
 // (mirroring the constructive `union` / `intersection` ops), with `self` as the
 // universe. `Self: Copyable` (not `~Copyable`): the `Algebra.Lattice` value
 // captures `Self` in its join/meet closures.
 
-extension Set.`Protocol`
+extension Membership
 where
     Self: Buildable & Iterable & Copyable,
     Element: Copyable,

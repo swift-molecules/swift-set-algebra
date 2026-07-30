@@ -10,8 +10,8 @@
 // ===----------------------------------------------------------------------===//
 
 // Set Algebra Primitives owns the orthogonal set *algebra* — the relational
-// predicates (`where Self: Set.Protocol & Iterable`) and the constructive ops
-// (`where Self: Set.Protocol & Buildable & Iterable`, returning `Self`). It is
+// predicates (`where Self: Membership & Iterable`) and the constructive ops
+// (`where Self: Membership & Buildable & Iterable`, returning `Self`). It is
 // the lone set-primitives sibling that depends on the iteration concern
 // (`Iterable`); the membership core stays iteration-free. Re-exports the
 // membership core + builder-primitives' `Buildable` + `Iterable` so the algebra

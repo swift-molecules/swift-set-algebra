@@ -14,7 +14,7 @@ import Testing
 
 // Constructive set algebra (`union` / `intersection` / `subtracting` /
 // `symmetricDifference`) + the `powerset()` lattice grounding, exercised against
-// `Set.Fixture` — the package's own buildable (`Set.Protocol` × builder's
+// `Set.Fixture` — the package's own buildable (`Membership` × builder's
 // `Buildable`) conformer. These witnesses are set-algebra's own surface, so they are tested
 // here, NOT in any storage-discipline package (set-ordered etc.): the discipline
 // packages depend on neither set-algebra nor each other; a consumer that wants

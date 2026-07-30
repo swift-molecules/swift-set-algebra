@@ -25,11 +25,11 @@ let package = Package(
         ),
     ],
     dependencies: [
-        // The membership core (Set.Protocol) lives in swift-set-primitives; the
+        // The membership core (Membership) lives in swift-set-primitives; the
         // build capability (Buildable: Initiable + add) in swift-builder-primitives;
         // the iteration concern (Iterable) in swift-iterator-primitives. This
         // package bridges them with the orthogonal element-wise algebra: predicates
-        // over Set.Protocol × Iterable, constructive/powerset over Set.Protocol ×
+        // over Membership × Iterable, constructive/powerset over Membership ×
         // Buildable × Iterable. There is NO bundled Set.Buildable.Protocol — the
         // buildable concern is builder-primitives × set-primitives. It deps DOWN
         // onto all three; swift-set-primitives deps this package NOWHERE ([MOD-032]).
@@ -45,8 +45,8 @@ let package = Package(
     ],
     targets: [
 
-        // MARK: - Algebra (predicates `where Self: Set.Protocol & Iterable` +
-        // constructive `where Self: Set.Protocol & Buildable & Iterable` → Self;
+        // MARK: - Algebra (predicates `where Self: Membership & Iterable` +
+        // constructive `where Self: Membership & Buildable & Iterable` → Self;
         // lifted from swift-set-primitives, [MOD-014] Form-1 extraction)
         .target(
             name: "Set Algebra Primitives",
@@ -58,7 +58,7 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Test Support (the Set.Protocol × Iterable × Buildable conformer fixture)
+        // MARK: - Test Support (the Membership × Iterable × Buildable conformer fixture)
         .target(
             name: "Set Algebra Primitives Test Support",
             dependencies: [
