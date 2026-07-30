@@ -10,7 +10,7 @@
 // ===----------------------------------------------------------------------===//
 
 // Test Support spine ([MOD-024]). Re-exports the own product + the iterator
-// Test Support (the spine anchor — surfaces Iterator.Chunk for Set.Fixture's
+// Test Support (the spine anchor — surfaces Iterator.Chunk for Fixture's
 // Iterable conformance).
 
 @_exported public import Set_Algebra_Primitives

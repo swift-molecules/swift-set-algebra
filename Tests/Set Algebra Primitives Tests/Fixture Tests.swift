@@ -13,16 +13,21 @@ import Set_Algebra_Primitives_Test_Support
 import Testing
 
 // The relational defaults declared on `Membership` in
-// `Set_Protocol_Primitives` are exercised here against `Set.Fixture`, the
+// `Set_Protocol_Primitives` are exercised here against `Fixture`, the
 // minimal `Membership` conformer that lives in the Test Support module.
-// `Set.Fixture` carries no storage discipline — it is the protocol-level
+// `Fixture` carries no storage discipline — it is the protocol-level
 // behavioural vehicle, deliberately distinct from the storage variants in
-// sibling packages.
+// sibling packages. `Fixture` is a top-level generic type, not nested under
+// `Set` (see the "Fixture (top-level; not nested under `Set`)" note in
+// `Tests/Support/Fixture.swift` for why: `Set` is an unbound generic
+// front-door typealias, and Swift's member-type lookup never looks through
+// one — the same defect class `Membership` itself was hoisted off
+// `Set.Protocol` to dodge).
 //
-// The suite anchors on a non-generic namespace because `Set.Fixture` is a
-// member of the generic `Set<Element>` namespace, and the Swift Testing
-// `@Suite` / `@Test` macros reject declarations in a generic context. Every
-// test references the source-domain type `Set<Int>.Fixture` directly.
+// The suite still anchors on a non-generic namespace because the Swift
+// Testing `@Suite` / `@Test` macros reject declarations in a generic
+// context. Every test references the concrete instantiation `Fixture<Int>`
+// directly.
 
 @Suite("Membership Relational Defaults")
 struct Test {
@@ -39,13 +44,13 @@ extension Test.Unit {
 
     @Test
     func `isEmpty is true for the empty set`() {
-        let empty = Set<Int>.Fixture([])
+        let empty = Fixture<Int>([])
         #expect(empty.isEmpty)
     }
 
     @Test
     func `isEmpty is false for a non-empty set`() {
-        let set = Set<Int>.Fixture([1])
+        let set = Fixture<Int>([1])
         #expect(!set.isEmpty)
     }
 
@@ -53,13 +58,13 @@ extension Test.Unit {
 
     @Test
     func `count reflects the number of unique elements`() {
-        let set = Set<Int>.Fixture([1, 2, 3])
+        let set = Fixture<Int>([1, 2, 3])
         #expect(set.count == 3)
     }
 
     @Test
     func `count drops duplicates supplied at construction`() {
-        let set = Set<Int>.Fixture([1, 2, 2, 3, 3, 3])
+        let set = Fixture<Int>([1, 2, 2, 3, 3, 3])
         #expect(set.count == 3)
     }
 
@@ -67,15 +72,15 @@ extension Test.Unit {
 
     @Test
     func `disjoint sets report disjoint`() {
-        let a = Set<Int>.Fixture([1, 2])
-        let b = Set<Int>.Fixture([3, 4])
+        let a = Fixture<Int>([1, 2])
+        let b = Fixture<Int>([3, 4])
         #expect(a.isDisjoint(with: b))
     }
 
     @Test
     func `overlapping sets are not disjoint`() {
-        let a = Set<Int>.Fixture([1, 2, 3])
-        let b = Set<Int>.Fixture([2, 4])
+        let a = Fixture<Int>([1, 2, 3])
+        let b = Fixture<Int>([2, 4])
         #expect(!a.isDisjoint(with: b))
     }
 
@@ -83,8 +88,8 @@ extension Test.Unit {
 
     @Test
     func `a proper subset is a subset`() {
-        let small = Set<Int>.Fixture([1, 2])
-        let large = Set<Int>.Fixture([1, 2, 3])
+        let small = Fixture<Int>([1, 2])
+        let large = Fixture<Int>([1, 2, 3])
         #expect(small.isSubset(of: large))
         #expect(!large.isSubset(of: small))
     }
@@ -93,8 +98,8 @@ extension Test.Unit {
 
     @Test
     func `a proper superset is a superset`() {
-        let large = Set<Int>.Fixture([1, 2, 3])
-        let small = Set<Int>.Fixture([1, 2])
+        let large = Fixture<Int>([1, 2, 3])
+        let small = Fixture<Int>([1, 2])
         #expect(large.isSuperset(of: small))
         #expect(!small.isSuperset(of: large))
     }
@@ -103,15 +108,15 @@ extension Test.Unit {
 
     @Test
     func `a proper subset is a strict subset`() {
-        let small = Set<Int>.Fixture([1, 2])
-        let large = Set<Int>.Fixture([1, 2, 3])
+        let small = Fixture<Int>([1, 2])
+        let large = Fixture<Int>([1, 2, 3])
         #expect(small.isStrictSubset(of: large))
     }
 
     @Test
     func `equal sets are not strict subsets`() {
-        let a = Set<Int>.Fixture([1, 2])
-        let b = Set<Int>.Fixture([1, 2])
+        let a = Fixture<Int>([1, 2])
+        let b = Fixture<Int>([1, 2])
         #expect(!a.isStrictSubset(of: b))
     }
 
@@ -119,15 +124,15 @@ extension Test.Unit {
 
     @Test
     func `a proper superset is a strict superset`() {
-        let large = Set<Int>.Fixture([1, 2, 3])
-        let small = Set<Int>.Fixture([1, 2])
+        let large = Fixture<Int>([1, 2, 3])
+        let small = Fixture<Int>([1, 2])
         #expect(large.isStrictSuperset(of: small))
     }
 
     @Test
     func `equal sets are not strict supersets`() {
-        let a = Set<Int>.Fixture([1, 2])
-        let b = Set<Int>.Fixture([1, 2])
+        let a = Fixture<Int>([1, 2])
+        let b = Fixture<Int>([1, 2])
         #expect(!a.isStrictSuperset(of: b))
     }
 
@@ -135,22 +140,22 @@ extension Test.Unit {
 
     @Test
     func `sets with the same elements are equal`() {
-        let a = Set<Int>.Fixture([1, 2, 3])
-        let b = Set<Int>.Fixture([3, 2, 1])
+        let a = Fixture<Int>([1, 2, 3])
+        let b = Fixture<Int>([3, 2, 1])
         #expect(a.isEqual(to: b))
     }
 
     @Test
     func `sets with different counts are not equal`() {
-        let a = Set<Int>.Fixture([1, 2])
-        let b = Set<Int>.Fixture([1, 2, 3])
+        let a = Fixture<Int>([1, 2])
+        let b = Fixture<Int>([1, 2, 3])
         #expect(!a.isEqual(to: b))
     }
 
     @Test
     func `sets with the same count but different elements are not equal`() {
-        let a = Set<Int>.Fixture([1, 2])
-        let b = Set<Int>.Fixture([2, 3])
+        let a = Fixture<Int>([1, 2])
+        let b = Fixture<Int>([2, 3])
         #expect(!a.isEqual(to: b))
     }
 }
@@ -161,8 +166,8 @@ extension Test.`Edge Case` {
 
     @Test
     func `the empty set is disjoint with every set`() {
-        let empty = Set<Int>.Fixture([])
-        let nonEmpty = Set<Int>.Fixture([1])
+        let empty = Fixture<Int>([])
+        let nonEmpty = Fixture<Int>([1])
         #expect(empty.isDisjoint(with: nonEmpty))
         #expect(nonEmpty.isDisjoint(with: empty))
         #expect(empty.isDisjoint(with: empty))
@@ -170,38 +175,38 @@ extension Test.`Edge Case` {
 
     @Test
     func `the empty set is a subset of every set`() {
-        let empty = Set<Int>.Fixture([])
-        let nonEmpty = Set<Int>.Fixture([1])
+        let empty = Fixture<Int>([])
+        let nonEmpty = Fixture<Int>([1])
         #expect(empty.isSubset(of: nonEmpty))
         #expect(empty.isSubset(of: empty))
     }
 
     @Test
     func `every set is a superset of the empty set`() {
-        let empty = Set<Int>.Fixture([])
-        let nonEmpty = Set<Int>.Fixture([1])
+        let empty = Fixture<Int>([])
+        let nonEmpty = Fixture<Int>([1])
         #expect(nonEmpty.isSuperset(of: empty))
         #expect(empty.isSuperset(of: empty))
     }
 
     @Test
     func `the empty set is a strict subset of any non-empty set`() {
-        let empty = Set<Int>.Fixture([])
-        let nonEmpty = Set<Int>.Fixture([1])
+        let empty = Fixture<Int>([])
+        let nonEmpty = Fixture<Int>([1])
         #expect(empty.isStrictSubset(of: nonEmpty))
         #expect(!empty.isStrictSubset(of: empty))
     }
 
     @Test
     func `empty sets are equal`() {
-        let a = Set<Int>.Fixture([])
-        let b = Set<Int>.Fixture([])
+        let a = Fixture<Int>([])
+        let b = Fixture<Int>([])
         #expect(a.isEqual(to: b))
     }
 
     @Test
     func `a set equals itself`() {
-        let set = Set<Int>.Fixture([1, 2, 3])
+        let set = Fixture<Int>([1, 2, 3])
         #expect(set.isEqual(to: set))
         #expect(set.isSubset(of: set))
         #expect(set.isSuperset(of: set))
@@ -216,8 +221,8 @@ extension Test.Integration {
 
     @Test
     func `subset and superset agree across a pair`() {
-        let small = Set<Int>.Fixture([1, 2])
-        let large = Set<Int>.Fixture([1, 2, 3, 4])
+        let small = Fixture<Int>([1, 2])
+        let large = Fixture<Int>([1, 2, 3, 4])
         #expect(small.isSubset(of: large))
         #expect(large.isSuperset(of: small))
         #expect(small.isStrictSubset(of: large))
@@ -227,8 +232,8 @@ extension Test.Integration {
 
     @Test
     func `equality implies mutual subset without strictness`() {
-        let a = Set<Int>.Fixture([1, 2, 3])
-        let b = Set<Int>.Fixture([1, 2, 3])
+        let a = Fixture<Int>([1, 2, 3])
+        let b = Fixture<Int>([1, 2, 3])
         #expect(a.isEqual(to: b))
         #expect(a.isSubset(of: b))
         #expect(b.isSubset(of: a))
@@ -238,8 +243,8 @@ extension Test.Integration {
 
     @Test
     func `disjoint non-empty sets are neither subset nor superset`() {
-        let a = Set<Int>.Fixture([1, 2])
-        let b = Set<Int>.Fixture([3, 4])
+        let a = Fixture<Int>([1, 2])
+        let b = Fixture<Int>([3, 4])
         #expect(a.isDisjoint(with: b))
         #expect(!a.isSubset(of: b))
         #expect(!a.isSuperset(of: b))

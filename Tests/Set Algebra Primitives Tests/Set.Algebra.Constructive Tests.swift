@@ -14,7 +14,7 @@ import Testing
 
 // Constructive set algebra (`union` / `intersection` / `subtracting` /
 // `symmetricDifference`) + the `powerset()` lattice grounding, exercised against
-// `Set.Fixture` — the package's own buildable (`Membership` × builder's
+// `Fixture` — the package's own buildable (`Membership` × builder's
 // `Buildable`) conformer. These witnesses are set-algebra's own surface, so they are tested
 // here, NOT in any storage-discipline package (set-ordered etc.): the discipline
 // packages depend on neither set-algebra nor each other; a consumer that wants
@@ -29,8 +29,8 @@ where S.Iterator.Element: Hashable, S.Iterator.Failure == Never {
     return result
 }
 
-private func fixture(_ elements: [Int]) -> Set<Int>.Fixture {
-    var set = Set<Int>.Fixture()
+private func fixture(_ elements: [Int]) -> Fixture<Int> {
+    var set = Fixture<Int>()
     for element in elements { set.add(element) }
     return set
 }
@@ -73,7 +73,7 @@ struct ConstructiveAlgebraTests {
 //
 // Birkhoff: the powerset 𝒫(U) ordered by ⊆ is a bounded lattice with ∪ = join,
 // ∩ = meet, ∅ = bottom, U = top. Set-algebra laws are compared order-insensitively
-// (sort first): `Set.Fixture` iteration is insertion-ordered, and the join of two
+// (sort first): `Fixture` iteration is insertion-ordered, and the join of two
 // disjoint sets preserves insertion order, which need not match the universe's.
 
 @Suite("Set Algebra — Powerset Lattice")
