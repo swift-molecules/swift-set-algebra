@@ -37,9 +37,14 @@ private func fixture(_ elements: [Int]) -> Fixture<Int> {
 
 // MARK: - Constructive Algebra
 
-@Suite("Set Algebra — Constructive")
-struct ConstructiveAlgebraTests {
+@Suite
+struct `Constructive Algebra Test` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
 
+extension `Constructive Algebra Test`.Unit {
     @Test
     func `union contains elements of both, receiver-first`() {
         let a = fixture([1, 2, 3])
@@ -76,9 +81,14 @@ struct ConstructiveAlgebraTests {
 // (sort first): `Fixture` iteration is insertion-ordered, and the join of two
 // disjoint sets preserves insertion order, which need not match the universe's.
 
-@Suite("Set Algebra — Powerset Lattice")
-struct PowersetLatticeTests {
+@Suite
+struct `Powerset Lattice Test` {
+    @Suite struct Unit {}
+    @Suite struct `Edge Case` {}
+    @Suite struct Integration {}
+}
 
+extension `Powerset Lattice Test`.Unit {
     @Test
     func `join is union, meet is intersection`() {
         let universe = fixture([1, 2, 3, 4])
