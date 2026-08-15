@@ -56,7 +56,9 @@ where
     public func union<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var result = Self()
         self.forEach { element in result.add(copy element) }
         other.forEach { element in result.add(copy element) }
@@ -80,7 +82,9 @@ where
     public func intersection<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var result = Self()
         self.forEach { element in
             if other.contains(element) { result.add(copy element) }
@@ -102,7 +106,9 @@ where
     public func subtracting<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var result = Self()
         self.forEach { element in
             if !other.contains(element) { result.add(copy element) }
@@ -123,7 +129,9 @@ where
     public func symmetricDifference<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var result = Self()
         self.forEach { element in
             if !other.contains(element) { result.add(copy element) }
