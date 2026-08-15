@@ -42,7 +42,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
     public func isDisjoint<Other: Membership & Iterable & ~Copyable>(
         with other: borrowing Other
     ) -> Bool
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var disjoint = true
         if count <= other.count {
             forEach { element in
@@ -66,7 +68,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
     public func isSubset<Other: Membership & Iterable & ~Copyable>(
         of other: borrowing Other
     ) -> Bool
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var result = true
         forEach { element in
             if result, !other.contains(element) { result = false }
@@ -84,7 +88,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
     public func isSuperset<Other: Membership & Iterable & ~Copyable>(
         of other: borrowing Other
     ) -> Bool
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         var result = true
         other.forEach { element in
             if result, !self.contains(element) { result = false }
@@ -106,7 +112,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
     public func isStrictSubset<Other: Membership & Iterable & ~Copyable>(
         of other: borrowing Other
     ) -> Bool
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         count < other.count && isSubset(of: other)
     }
 
@@ -124,7 +132,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
     public func isStrictSuperset<Other: Membership & Iterable & ~Copyable>(
         of other: borrowing Other
     ) -> Bool
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         count > other.count && isSuperset(of: other)
     }
 
@@ -141,7 +151,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
     public func isEqual<Other: Membership & Iterable & ~Copyable>(
         to other: borrowing Other
     ) -> Bool
-    where Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never {
+    where
+        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+    {
         count == other.count && isSubset(of: other)
     }
 }
