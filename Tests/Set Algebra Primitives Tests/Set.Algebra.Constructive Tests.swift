@@ -1,26 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2026 Coen ten Thije Boonkkamp and the swift-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Set_Algebra_Primitives_Test_Support
 import Testing
-
-// Constructive set algebra (`union` / `intersection` / `subtracting` /
-// `symmetricDifference`) + the `powerset()` lattice grounding, exercised against
-// `Fixture` — the package's own buildable (`Membership` × builder's
-// `Buildable`) conformer. These witnesses are set-algebra's own surface, so they are tested
-// here, NOT in any storage-discipline package (set-ordered etc.): the discipline
-// packages depend on neither set-algebra nor each other; a consumer that wants
-// algebra over a concrete set composes both at the import site.
-
-// MARK: - Helper
 
 private func toArray<S: Iterable & ~Copyable>(_ set: borrowing S) -> [S.Iterator.Element]
 where S.Iterator.Element: Hashable, S.Iterator.Failure == Never {
@@ -34,8 +13,6 @@ private func fixture(_ elements: [Int]) -> Fixture<Int> {
     for element in elements { set.add(element) }
     return set
 }
-
-// MARK: - Constructive Algebra
 
 @Suite
 struct `Constructive Algebra Test` {
@@ -73,13 +50,6 @@ extension `Constructive Algebra Test`.Unit {
         #expect(toArray(a.symmetricDifference(b)) == [1, 4])
     }
 }
-
-// MARK: - Powerset Lattice
-//
-// Birkhoff: the powerset 𝒫(U) ordered by ⊆ is a bounded lattice with ∪ = join,
-// ∩ = meet, ∅ = bottom, U = top. Set-algebra laws are compared order-insensitively
-// (sort first): `Fixture` iteration is insertion-ordered, and the join of two
-// disjoint sets preserves insertion order, which need not match the universe's.
 
 @Suite
 struct `Powerset Lattice Test` {
@@ -124,9 +94,9 @@ extension `Powerset Lattice Test`.Unit {
         let universe = fixture([1, 2, 3, 4])
         let lattice = universe.powerset()
         let a = fixture([1, 3])
-        let notA = universe.subtracting(a)  // U ∖ A = {2, 4}
+        let notA = universe.subtracting(a)
         #expect(toArray(notA) == [2, 4])
-        // a ∨ ¬a = ⊤ (universe);  a ∧ ¬a = ⊥ (∅) — set-algebra laws, order-insensitive.
+
         #expect(toArray(lattice.join(a, notA)).sorted() == toArray(universe).sorted())
         #expect(toArray(lattice.meet(a, notA)).isEmpty)
     }

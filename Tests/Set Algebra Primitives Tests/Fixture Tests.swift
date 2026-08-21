@@ -1,33 +1,5 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2026 Coen ten Thije Boonkkamp and the swift-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 import Set_Algebra_Primitives_Test_Support
 import Testing
-
-// The relational defaults declared on `Membership` in
-// `Set_Protocol_Primitives` are exercised here against `Fixture`, the
-// minimal `Membership` conformer that lives in the Test Support module.
-// `Fixture` carries no storage discipline — it is the protocol-level
-// behavioural vehicle, deliberately distinct from the storage variants in
-// sibling packages. `Fixture` is a top-level generic type, not nested under
-// `Set` (see the "Fixture (top-level; not nested under `Set`)" note in
-// `Tests/Support/Fixture.swift` for why: `Set` is an unbound generic
-// front-door typealias, and Swift's member-type lookup never looks through
-// one — the same defect class `Membership` itself was hoisted off
-// `Set.Protocol` to dodge).
-//
-// The suite still anchors on a non-generic namespace because the Swift
-// Testing `@Suite` / `@Test` macros reject declarations in a generic
-// context. Every test references the concrete instantiation `Fixture<Int>`
-// directly.
 
 @Suite("Membership Relational Defaults")
 struct Test {
@@ -36,11 +8,7 @@ struct Test {
     @Suite struct Integration {}
 }
 
-// MARK: - Unit
-
 extension Test.Unit {
-
-    // MARK: isEmpty
 
     @Test
     func `isEmpty is true for the empty set`() {
@@ -54,8 +22,6 @@ extension Test.Unit {
         #expect(!set.isEmpty)
     }
 
-    // MARK: count
-
     @Test
     func `count reflects the number of unique elements`() {
         let set = Fixture<Int>([1, 2, 3])
@@ -67,8 +33,6 @@ extension Test.Unit {
         let set = Fixture<Int>([1, 2, 2, 3, 3, 3])
         #expect(set.count == 3)
     }
-
-    // MARK: isDisjoint
 
     @Test
     func `disjoint sets report disjoint`() {
@@ -84,8 +48,6 @@ extension Test.Unit {
         #expect(!a.isDisjoint(with: b))
     }
 
-    // MARK: isSubset
-
     @Test
     func `a proper subset is a subset`() {
         let small = Fixture<Int>([1, 2])
@@ -94,8 +56,6 @@ extension Test.Unit {
         #expect(!large.isSubset(of: small))
     }
 
-    // MARK: isSuperset
-
     @Test
     func `a proper superset is a superset`() {
         let large = Fixture<Int>([1, 2, 3])
@@ -103,8 +63,6 @@ extension Test.Unit {
         #expect(large.isSuperset(of: small))
         #expect(!small.isSuperset(of: large))
     }
-
-    // MARK: isStrictSubset
 
     @Test
     func `a proper subset is a strict subset`() {
@@ -120,8 +78,6 @@ extension Test.Unit {
         #expect(!a.isStrictSubset(of: b))
     }
 
-    // MARK: isStrictSuperset
-
     @Test
     func `a proper superset is a strict superset`() {
         let large = Fixture<Int>([1, 2, 3])
@@ -135,8 +91,6 @@ extension Test.Unit {
         let b = Fixture<Int>([1, 2])
         #expect(!a.isStrictSuperset(of: b))
     }
-
-    // MARK: isEqual
 
     @Test
     func `sets with the same elements are equal`() {
@@ -159,8 +113,6 @@ extension Test.Unit {
         #expect(!a.isEqual(to: b))
     }
 }
-
-// MARK: - Edge Case
 
 extension Test.`Edge Case` {
 
@@ -214,8 +166,6 @@ extension Test.`Edge Case` {
         #expect(!set.isStrictSuperset(of: set))
     }
 }
-
-// MARK: - Integration
 
 extension Test.Integration {
 

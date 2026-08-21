@@ -1,38 +1,6 @@
-// ===----------------------------------------------------------------------===//
-//
-// This source file is part of the swift-primitives open source project
-//
-// Copyright (c) 2024-2026 Coen ten Thije Boonkkamp and the swift-primitives project authors
-// Licensed under Apache License v2.0
-//
-// See LICENSE for license information
-//
-// ===----------------------------------------------------------------------===//
-
 public import Builder_Primitives
 public import Iterable
 public import Set_Protocol_Primitives
-
-// MARK: - Constructive Algebra (returns `Self`, composed over Membership × builder's Buildable)
-//
-// The constructive operations build a new set, so they are total only on
-// growable sets — hence `Self: Buildable` (builder-primitives' generic build
-// capability: `Initiable`'s `init()` + the neutral `add`). They return **`Self`**
-// (the model §4.2 result-type fix), not a hard-coded `Set.Ordered`, so each
-// growable discipline gets back its own type and needs no downstream home.
-// Bounded disciplines (`Set.Ordered.Fixed`/`.Static`) are NOT `Buildable`
-// and inherit the predicates only — a `Self`-returning constructive op on a
-// bounded set could silently overflow.
-//
-// There is no bundled `Set.Buildable.Protocol`: the buildable concern is
-// builder-primitives × set-primitives, composed here as `Membership &
-// Buildable`. The result is filled through `add` (builder's neutral grow op),
-// which each set conforms by delegating to its own `insert` and discarding the
-// report.
-//
-// `Self.Failure == Never`: empty construction (`Self()`) is infallible for every
-// growable set, so the constructive ops are non-throwing. `Element: Copyable` is
-// required: these ops copy elements into the result.
 
 extension Membership
 where
@@ -43,16 +11,8 @@ where
     Self.Iterator.Failure == Never
 {
 
-    /// Returns a new set with elements from both sets.
-    ///
-    /// Elements from `self` appear first in iteration order, followed by
-    /// elements from `other` not already present.
-    ///
-    /// - Parameter other: The set to form a union with.
-    /// - Returns: A new set containing all elements from both sets.
-    /// - Complexity: O(n + m) average, where n and m are the set sizes.
     @inlinable
-    // swiftlint:disable:next prefer_self_in_static_references - reason: `Self` here is the concrete conforming type, not the protocol; `Other: Self` over-constrains Other == Self and does not compile (verified via swiftc).
+
     public func union<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
@@ -65,20 +25,8 @@ where
         return result
     }
 
-    /// Returns a new set with elements common to both sets.
-    ///
-    /// Iterates `self` (the receiver) and probes `other`, so the result
-    /// preserves the receiver's iteration order — the deterministic
-    /// intersection contract (consistent with `union` / `subtracting` /
-    /// `symmetricDifference`, which are all receiver-first). A smaller-set
-    /// optimization would be order-nondeterministic and is intentionally not used.
-    ///
-    /// - Parameter other: The set to intersect with.
-    /// - Returns: A new set containing only elements present in both sets,
-    ///   in the receiver's order.
-    /// - Complexity: O(n) average, where n is the size of the receiver.
     @inlinable
-    // swiftlint:disable:next prefer_self_in_static_references - reason: `Self` here is the concrete conforming type, not the protocol; `Other: Self` over-constrains Other == Self and does not compile (verified via swiftc).
+
     public func intersection<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
@@ -92,17 +40,8 @@ where
         return result
     }
 
-    /// Returns a new set with the elements of this set that are not in `other`.
-    ///
-    /// Elements appear in the iteration order of `self`. Non-mutating — the
-    /// mutating counterpart would be `subtract`; this is `subtracting` per the
-    /// Swift API guidelines / `SetAlgebra` precedent.
-    ///
-    /// - Parameter other: The set to subtract.
-    /// - Returns: A new set with elements not in `other`.
-    /// - Complexity: O(n) average, where n is the size of this set.
     @inlinable
-    // swiftlint:disable:next prefer_self_in_static_references - reason: `Self` here is the concrete conforming type, not the protocol; `Other: Self` over-constrains Other == Self and does not compile (verified via swiftc).
+
     public func subtracting<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self
@@ -116,16 +55,8 @@ where
         return result
     }
 
-    /// Returns a new set with elements in either set, but not both.
-    ///
-    /// Elements from `self` (absent from `other`) appear first, followed by
-    /// elements from `other` absent from `self`.
-    ///
-    /// - Parameter other: The other set.
-    /// - Returns: A new set with elements in exactly one of the sets.
-    /// - Complexity: O(n + m) average, where n and m are the set sizes.
     @inlinable
-    // swiftlint:disable:next prefer_self_in_static_references - reason: `Self` here is the concrete conforming type, not the protocol; `Other: Self` over-constrains Other == Self and does not compile (verified via swiftc).
+
     public func symmetricDifference<Other: Membership & Iterable & ~Copyable>(
         _ other: borrowing Other
     ) -> Self

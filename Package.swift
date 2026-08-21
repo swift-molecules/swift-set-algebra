@@ -12,27 +12,19 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        // MARK: - Algebra
+
         .library(
             name: "Set Algebra Primitives",
             targets: ["Set Algebra Primitives"]
         ),
 
-        // MARK: - Test Support
         .library(
             name: "Set Algebra Primitives Test Support",
             targets: ["Set Algebra Primitives Test Support"]
         ),
     ],
     dependencies: [
-        // The membership core (Membership) lives in swift-set-primitives; the
-        // build capability (Buildable: Initiable + add) in swift-builder-primitives;
-        // the iteration concern (Iterable) in swift-iterator-primitives. This
-        // package bridges them with the orthogonal element-wise algebra: predicates
-        // over Membership × Iterable, constructive/powerset over Membership ×
-        // Buildable × Iterable. There is NO bundled Set.Buildable.Protocol — the
-        // buildable concern is builder-primitives × set-primitives. It deps DOWN
-        // onto all three; swift-set-primitives deps this package NOWHERE ([MOD-032]).
+
         .package(
             url: "https://github.com/swift-primitives/swift-set-primitives.git",
             branch: "main"
@@ -45,11 +37,7 @@ let package = Package(
             url: "https://github.com/swift-primitives/swift-iterator-primitives.git",
             branch: "main"
         ),
-        // The formal algebra substrate grounds the set ops as ∪ = join / ∩ = meet
-        // over a packaged bounded lattice (model §4.2 / §9). The complement
-        // (∁A = U ∖ A) is this package's own native `subtracting`; there is no
-        // Boolean-algebra witness type — `Swift.Bool` is the canonical Boolean
-        // algebra (swift-bool-algebra-primitives), separate from this. Downward dep:
+
         .package(
             url: "https://github.com/swift-primitives/swift-algebra-primitives.git",
             branch: "main"
@@ -57,9 +45,6 @@ let package = Package(
     ],
     targets: [
 
-        // MARK: - Algebra (predicates `where Self: Membership & Iterable` +
-        // constructive `where Self: Membership & Buildable & Iterable` → Self;
-        // lifted from swift-set-primitives, [MOD-014] Form-1 extraction)
         .target(
             name: "Set Algebra Primitives",
             dependencies: [
@@ -70,13 +55,11 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Test Support (the Membership × Iterable × Buildable conformer fixture)
         .target(
             name: "Set Algebra Primitives Test Support",
             dependencies: [
                 "Set Algebra Primitives",
-                // TS-of-dep ([MOD-024]): surfaces Iterator.Chunk for the
-                // fixture's Iterable conformance.
+
                 .product(
                     name: "Iterator Primitives Test Support",
                     package: "swift-iterator-primitives"
@@ -85,7 +68,6 @@ let package = Package(
             path: "Tests/Support"
         ),
 
-        // MARK: - Tests
         .testTarget(
             name: "Set Algebra Primitives Tests",
             dependencies: [
