@@ -1,5 +1,5 @@
-public import Set_Algebra_Primitives
-public import Iterator_Chunk_Primitives
+public import Set_Algebra
+public import Iterator_Chunk
 
 public struct Fixture<Element: Hash.`Protocol` & Copyable> {
     @usableFromInline
@@ -30,12 +30,12 @@ extension Fixture: Membership {
 
 extension Fixture: Iterable {
     @_implements(Iterable, Iterator)
-    public typealias IterableIterator = Iterator_Chunk_Primitives.Iterator.Chunk<Element>
+    public typealias IterableIterator = Iterator_Chunk.Iterator.Chunk<Element>
 
     @_lifetime(borrow self)
     @inlinable
-    public borrowing func makeIterator() -> Iterator_Chunk_Primitives.Iterator.Chunk<Element> {
-        Iterator_Chunk_Primitives.Iterator.Chunk(elements.span)
+    public borrowing func makeIterator() -> Iterator_Chunk.Iterator.Chunk<Element> {
+        Iterator_Chunk.Iterator.Chunk(elements.span)
     }
 }
 

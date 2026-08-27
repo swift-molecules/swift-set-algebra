@@ -1,2 +1,2 @@
-@_exported public import Set_Algebra_Primitives
-@_exported public import Iterator_Primitives_Test_Support
+@_exported public import Set_Algebra
+@_exported public import Iterator_Test_Support

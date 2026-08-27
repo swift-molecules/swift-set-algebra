@@ -1,7 +1,7 @@
 # .github/metadata.yaml
 description: "Set algebra for Swift — predicates and constructive operations as orthogonal defaults over Set.Protocol."
 topics:
-  - primitives
+  - molecules
   - set
   - algebra
 homepage: "https://swift-institute.org"

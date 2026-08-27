@@ -1,6 +1,6 @@
-public import Builder_Primitives
+public import Builder
 public import Iterable
-public import Set_Protocol_Primitives
+public import Set_Protocol
 
 extension Membership
 where

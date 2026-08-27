@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-set-algebra-primitives",
+    name: "swift-set-algebra",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -14,67 +14,67 @@ let package = Package(
     products: [
 
         .library(
-            name: "Set Algebra Primitives",
-            targets: ["Set Algebra Primitives"]
+            name: "Set Algebra",
+            targets: ["Set Algebra"]
         ),
 
         .library(
-            name: "Set Algebra Primitives Test Support",
-            targets: ["Set Algebra Primitives Test Support"]
+            name: "Set Algebra Test Support",
+            targets: ["Set Algebra Test Support"]
         ),
     ],
     dependencies: [
 
         .package(
-            url: "https://github.com/swift-primitives/swift-set-primitives.git",
+            url: "https://github.com/swift-molecules/swift-set.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-builder-primitives.git",
+            url: "https://github.com/swift-molecules/swift-builder.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-iterator-primitives.git",
+            url: "https://github.com/swift-molecules/swift-iterator.git",
             branch: "main"
         ),
 
         .package(
-            url: "https://github.com/swift-primitives/swift-algebra-primitives.git",
+            url: "https://github.com/swift-molecules/swift-algebra.git",
             branch: "main"
         ),
     ],
     targets: [
 
         .target(
-            name: "Set Algebra Primitives",
+            name: "Set Algebra",
             dependencies: [
-                .product(name: "Set Protocol Primitives", package: "swift-set-primitives"),
-                .product(name: "Builder Primitives", package: "swift-builder-primitives"),
-                .product(name: "Iterable", package: "swift-iterator-primitives"),
-                .product(name: "Algebra Lattice Primitives", package: "swift-algebra-primitives"),
+                .product(name: "Set Protocol", package: "swift-set"),
+                .product(name: "Builder", package: "swift-builder"),
+                .product(name: "Iterable", package: "swift-iterator"),
+                .product(name: "Algebra Lattice", package: "swift-algebra"),
             ]
         ),
 
         .target(
-            name: "Set Algebra Primitives Test Support",
+            name: "Set Algebra Test Support",
             dependencies: [
-                "Set Algebra Primitives",
+                "Set Algebra",
 
                 .product(
-                    name: "Iterator Primitives Test Support",
-                    package: "swift-iterator-primitives"
+                    name: "Iterator Test Support",
+                    package: "swift-iterator"
                 ),
             ],
             path: "Tests/Support"
         ),
 
         .testTarget(
-            name: "Set Algebra Primitives Tests",
+            name: "Set Algebra Tests",
             dependencies: [
-                "Set Algebra Primitives",
-                "Set Algebra Primitives Test Support",
+                "Set Algebra",
+                "Set Algebra Test Support",
             ],
-            path: "Tests/Set Algebra Primitives Tests"
+            path: "Tests/Set Algebra Tests"
         ),
     ],
     swiftLanguageModes: [.v6]

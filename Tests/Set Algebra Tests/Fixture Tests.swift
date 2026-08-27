@@ -1,4 +1,4 @@
-import Set_Algebra_Primitives_Test_Support
+import Set_Algebra_Test_Support
 import Testing
 
 @Suite("Membership Relational Defaults")
