@@ -1,5 +1,8 @@
 public import Set_Algebra
-public import Iterator_Chunk
+public import Iterator
+
+@_documentation(visibility: internal)
+public typealias __FixtureIterator<Element: ~Copyable> = Iterator.Chunk<Element>
 
 public struct Fixture<Element: Hash.`Protocol` & Copyable> {
     @usableFromInline
@@ -23,19 +26,19 @@ extension Fixture: Membership {
     }
 
     @inlinable
-    public var count: Index<Element>.Count {
-        Index<Element>.Count(Cardinal(Swift.UInt(elements.count)))
+    public var count: Cardinal {
+        Cardinal(Swift.UInt(elements.count))
     }
 }
 
 extension Fixture: Iterable {
     @_implements(Iterable, Iterator)
-    public typealias IterableIterator = Iterator_Chunk.Iterator.Chunk<Element>
+    public typealias IterableIterator = __FixtureIterator<Element>
 
     @_lifetime(borrow self)
     @inlinable
-    public borrowing func makeIterator() -> Iterator_Chunk.Iterator.Chunk<Element> {
-        Iterator_Chunk.Iterator.Chunk(elements.span)
+    public borrowing func makeIterator() -> __FixtureIterator<Element> {
+        __FixtureIterator(elements.span)
     }
 }
 

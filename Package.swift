@@ -26,7 +26,7 @@ let package = Package(
     dependencies: [
 
         .package(
-            url: "https://github.com/swift-molecules/swift-set.git",
+            url: "https://github.com/swift-atoms/swift-set.git",
             branch: "main"
         ),
         .package(
@@ -34,12 +34,12 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-iterator.git",
+            url: "https://github.com/swift-atoms/swift-iterator.git",
             branch: "main"
         ),
 
         .package(
-            url: "https://github.com/swift-molecules/swift-algebra.git",
+            url: "https://github.com/swift-atoms/swift-algebra.git",
             branch: "main"
         ),
     ],
@@ -48,10 +48,10 @@ let package = Package(
         .target(
             name: "Set Algebra",
             dependencies: [
-                .product(name: "Set Protocol", package: "swift-set"),
+                .product(name: "Set", package: "swift-set"),
                 .product(name: "Builder", package: "swift-builder"),
-                .product(name: "Iterable", package: "swift-iterator"),
-                .product(name: "Algebra Lattice", package: "swift-algebra"),
+                .product(name: "Iterator", package: "swift-iterator"),
+                .product(name: "Algebra", package: "swift-algebra"),
             ]
         ),
 
@@ -60,10 +60,8 @@ let package = Package(
             dependencies: [
                 "Set Algebra",
 
-                .product(
-                    name: "Iterator Test Support",
-                    package: "swift-iterator"
-                ),
+                .product(name: "Iterator", package: "swift-iterator"),
+                .product(name: "Set Test Support", package: "swift-set"),
             ],
             path: "Tests/Support"
         ),

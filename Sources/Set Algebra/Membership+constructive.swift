@@ -1,6 +1,7 @@
 public import Builder
-public import Iterable
-public import Set_Protocol
+public import Initialization
+public import Iterator
+public import Set
 
 extension Membership
 where

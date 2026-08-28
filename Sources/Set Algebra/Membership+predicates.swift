@@ -1,5 +1,5 @@
-public import Iterable
-public import Set_Protocol
+public import Iterator
+public import Set
 
 extension Membership
 where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterator.Failure == Never {
