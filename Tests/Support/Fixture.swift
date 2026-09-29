@@ -4,7 +4,7 @@ public import Iterator
 @_documentation(visibility: internal)
 public typealias __FixtureIterator<Element: ~Copyable> = Iterator.Chunk<Element>
 
-public struct Fixture<Element: Hash.`Protocol` & Copyable> {
+public struct Fixture<Element: Swift.Hashable & Copyable> {
     @usableFromInline
     var elements: [Element]
 
