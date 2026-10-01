@@ -1,3 +1,4 @@
+public import Index
 public import Set_Algebra
 public import Iterator
 
@@ -26,8 +27,8 @@ extension Fixture: Membership {
     }
 
     @inlinable
-    public var count: Cardinal {
-        Cardinal(Swift.UInt(elements.count))
+    public var count: Index<Element>.Count {
+        Index<Element>.Count(Swift.UInt(elements.count))
     }
 }
 
