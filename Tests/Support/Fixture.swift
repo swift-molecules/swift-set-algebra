@@ -5,12 +5,12 @@ public import Iterator
 @_documentation(visibility: internal)
 public typealias __FixtureIterator<Element: ~Copyable> = Iterator.Chunk<Element>
 
-public struct Fixture<Element: Swift.Hashable & Copyable> {
+public struct Fixture<Element: Swift::Hashable & Copyable> {
     @usableFromInline
     var elements: [Element]
 
     @inlinable
-    public init(_ elements: some Swift.Sequence<Element>) {
+    public init(_ elements: some Swift::Sequence<Element>) {
         var unique: [Element] = []
         for element in elements where !unique.contains(where: { $0 == element }) {
             unique.append(element)
@@ -28,7 +28,7 @@ extension Fixture: Membership {
 
     @inlinable
     public var count: Index<Element>.Count {
-        Index<Element>.Count(Swift.UInt(elements.count))
+        Index<Element>.Count(Swift::UInt(elements.count))
     }
 }
 

@@ -58,7 +58,7 @@ let package = Package(
         .target(
             name: "Set Algebra Test Support",
             dependencies: [
-                "Set Algebra",
+                .target(name: "Set Algebra"),
 
                 .product(name: "Iterator", package: "swift-iterator"),
                 .product(name: "Set Test Support", package: "swift-set"),
@@ -69,8 +69,8 @@ let package = Package(
         .testTarget(
             name: "Set Algebra Tests",
             dependencies: [
-                "Set Algebra",
-                "Set Algebra Test Support",
+                .target(name: "Set Algebra"),
+                .target(name: "Set Algebra Test Support"),
             ],
             path: "Tests/Set Algebra Tests"
         ),
@@ -79,17 +79,14 @@ let package = Package(
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    let ecosystem: [SwiftSetting] = [
+    target.swiftSettings = (target.swiftSettings ?? []) + [
         .strictMemorySafety(),
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
         .enableUpcomingFeature("MemberImportVisibility"),
         .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableExperimentalFeature("Lifetimes"),
         .enableUpcomingFeature("InferIsolatedConformances"),
+        .enableExperimentalFeature("Lifetimes"),
+        .treatAllWarnings(as: .error),
     ]
-
-    let package: [SwiftSetting] = []
-
-    target.swiftSettings = (target.swiftSettings ?? []) + ecosystem + package
 }
