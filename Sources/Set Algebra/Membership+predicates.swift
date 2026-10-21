@@ -10,7 +10,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
         with other: borrowing Other
     ) -> Bool
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var disjoint = true
         if count <= other.count {
@@ -31,7 +33,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
         of other: borrowing Other
     ) -> Bool
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var result = true
         forEach { element in
@@ -46,7 +50,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
         of other: borrowing Other
     ) -> Bool
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var result = true
         other.forEach { element in
@@ -61,7 +67,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
         of other: borrowing Other
     ) -> Bool
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         count < other.count && isSubset(of: other)
     }
@@ -72,7 +80,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
         of other: borrowing Other
     ) -> Bool
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         count > other.count && isSuperset(of: other)
     }
@@ -83,7 +93,9 @@ where Self: Iterable & ~Copyable, Self.Iterator.Element == Element, Self.Iterato
         to other: borrowing Other
     ) -> Bool
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         count == other.count && isSubset(of: other)
     }

@@ -1,6 +1,6 @@
 public import Index
-public import Set_Algebra
 public import Iterator
+public import Set_Algebra
 
 @_documentation(visibility: internal)
 public typealias __FixtureIterator<Element: ~Copyable> = Iterator.Chunk<Element>
@@ -33,7 +33,7 @@ extension Fixture: Membership {
 }
 
 extension Fixture: Iterable {
-    @_implements(Iterable, Iterator)
+    @_implements(Iterable,Iterator)
     public typealias IterableIterator = __FixtureIterator<Element>
 
     @_lifetime(borrow self)

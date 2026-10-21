@@ -18,7 +18,9 @@ where
         _ other: borrowing Other
     ) -> Self
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var result = Self()
         self.forEach { element in result.add(copy element) }
@@ -32,7 +34,9 @@ where
         _ other: borrowing Other
     ) -> Self
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var result = Self()
         self.forEach { element in
@@ -47,7 +51,9 @@ where
         _ other: borrowing Other
     ) -> Self
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var result = Self()
         self.forEach { element in
@@ -62,7 +68,9 @@ where
         _ other: borrowing Other
     ) -> Self
     where
-        Other.Element == Element, Other.Iterator.Element == Element, Other.Iterator.Failure == Never
+        Other.Element == Element,
+        Other.Iterator.Element == Element,
+        Other.Iterator.Failure == Never
     {
         var result = Self()
         self.forEach { element in
